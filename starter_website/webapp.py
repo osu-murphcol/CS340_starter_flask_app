@@ -16,21 +16,21 @@ def nav_login():
         'Food Delivery Inc.'
     )
 
-def nav_home_customer():
+def nav_customer():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_customer'),
         View('logout', 'logout')
     )
 
-def nav_home_driver():
+def nav_driver():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_driver'),
         View('logout', 'logout')
     )
 
-def nav_home_manager():
+def nav_manager():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_manager'),
