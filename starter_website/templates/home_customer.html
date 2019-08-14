@@ -2,11 +2,10 @@
 {% block title %}Customer Home{% endblock %}
 
 {% block navbar %}
-{{nav.mynavbar.render()}}
+{{nav.nav_customer.render()}}
 {% endblock %}
 
 {% block content %}
-{% if user %}
 <h3>
     Welcome, Customer {{user[2]}} {{user[3]}}
 </h3>
