@@ -22,6 +22,7 @@ def nav_customer():
         'Food Delivery Inc.',
         View('Home', 'home_customer'),
         View('Search', 'search'),
+        View('View Cart', 'cart'),
         View('Logout', 'logout')
     )
 
