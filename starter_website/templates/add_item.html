@@ -1,4 +1,11 @@
-<html>
-<head><title>Add Item</title></head>
+{% extends "bootstrap/base.html" %}
+{% block title %}Add Item{% endblock %}
 
-</html>
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+{% block content %}
+{% if user %}
+<h3>Add an item:</h3>
+{% endblock %}

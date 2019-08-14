@@ -1,0 +1,12 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Customer Home{% endblock %}
+
+{% block navbar %}
+{{nav.nav_customer.render()}}
+{% endblock %}
+
+{% block content %}
+<h3>
+    Welcome, Customer {{user[2]}} {{user[3]}}
+</h3>
+{% endblock %}

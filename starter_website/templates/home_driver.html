@@ -1,11 +1,10 @@
 {% extends "bootstrap/base.html" %}
-{% block title %}Change Address{% endblock %}
+{% block title %}Driver Console{% endblock %}
 
 {% block navbar %}
 {{nav.mynavbar.render()}}
 {% endblock %}
 
 {% block content %}
-{% if user %}
-<h3>Please modify your current address: </h3>
+Welcome, Driver {{user[2]}} {{user[3]}}
 {% endblock %}

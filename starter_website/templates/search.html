@@ -1,4 +1,13 @@
-<html>
-<head><title>Search</title></head>
 
-</html>
+{% extends "bootstrap/base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block navbar %}
+{{nav.nav_customer.render()}}
+{% endblock %}
+
+{% block content %}
+<h3>Search for a food type:</h3>
+<form id="user" action="/search" method="post">
+ </form>
+ {% endblock %}
