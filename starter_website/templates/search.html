@@ -11,8 +11,8 @@
 <form id="foodtypes" action="/search" method="post">
   Food type: <select name="type">
       {% for type in food_types %}
-      {{type}}
-      <option value="{{type}}">{{type}}</option>
+      {{type[0]}}
+      <option value="{{type[0]}}">{{type[0]}}</option>
       {% endfor %}
   </select><br>
   <input type="submit" value="Submit">
