@@ -16,6 +16,7 @@ def nav_login():
         'Food Delivery Inc.'
     )
 
+@nav.navigation()
 def nav_customer():
     return Navbar(
         'Food Delivery Inc.',
@@ -23,6 +24,7 @@ def nav_customer():
         View('logout', 'logout')
     )
 
+@nav.navigation()
 def nav_driver():
     return Navbar(
         'Food Delivery Inc.',
@@ -30,6 +32,7 @@ def nav_driver():
         View('logout', 'logout')
     )
 
+@nav.navigation()
 def nav_manager():
     return Navbar(
         'Food Delivery Inc.',
