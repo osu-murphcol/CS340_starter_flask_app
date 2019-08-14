@@ -21,7 +21,8 @@ def nav_customer():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_customer'),
-        View('logout', 'logout')
+        View('Search', 'search'),
+        View('Logout', 'logout')
     )
 
 @nav.navigation()
@@ -29,7 +30,7 @@ def nav_driver():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_driver'),
-        View('logout', 'logout')
+        View('Logout', 'logout')
     )
 
 @nav.navigation()
@@ -37,7 +38,8 @@ def nav_manager():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_manager'),
-        View('logout', 'logout')
+        View('Add Item', 'add_item'),
+        View('Logout', 'logout')
     )
 
 @webapp.route('/')
@@ -109,7 +111,7 @@ def home_driver():
         result = execute_query(db_connection, query).fetchone()
         if result[0] == 'D':
             return render_template('home_driver.html', user=result)  
-    return redirect(url_for(login))
+    return redirect(url_for('login'))
 
 @webapp.route('/home_customer')
 def home_customer():
@@ -120,7 +122,7 @@ def home_customer():
         result = execute_query(db_connection, query).fetchone()
         if result[0] == 'C':
             return render_template('home_customer.html', user=result)  
-    return redirect(url_for(login))
+    return redirect(url_for('login'))
 
 @webapp.route('/add_item')
 def add_item():
