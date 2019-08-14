@@ -6,8 +6,6 @@
 {% endblock %}
 
 {% block content %}
-
-{% if user %}
 <!--Welcome Manager of the Food Service to the Page-->
 <h3>
     Welcome, Manager {{user[2]}} {{user[3]}}
@@ -47,16 +45,5 @@
     <br>
     <input type="submit" value="Submit" onClick="window.location.reload();">
 </form>
-
-
-
-
-
-<a href='/logout'>Click here to log out</a>
-{% else %}
-You are not logged in
-<br>
-<a href='/login'>Click here to log in</a>
-{% endif %}
 
 {% endblock %}

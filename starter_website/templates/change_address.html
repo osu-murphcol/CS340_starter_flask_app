@@ -1,4 +1,11 @@
-<html>
-<head><title>Change Address</title></head>
+{% extends "bootstrap/base.html" %}
+{% block title %}Change Address{% endblock %}
 
-</html>
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+{% block content %}
+{% if user %}
+<h3>Please modify your current address: </h3>
+{% endblock %}

@@ -11,11 +11,30 @@ webapp = Flask(__name__)
 webapp.secret_key = 'cs340_2019'
 
 @nav.navigation()
-def mynavbar():
+def nav_login():
     return Navbar(
-        'Food Delivery Inc.',
-        View('Login', 'login'),
-        View('Logout', 'logout')
+        'Food Delivery Inc.'
+    )
+
+def nav_home_customer():
+    return Navbar(
+        'Food Delivery Inc.'
+        View('Home', 'home_customer'),
+        View('logout', 'logout')
+    )
+
+def nav_home_driver():
+    return Navbar(
+        'Food Delivery Inc.'
+        View('Home', 'home_driver'),
+        View('logout', 'logout')
+    )
+
+def nav_home_manager():
+    return Navbar(
+        'Food Delivery Inc.'
+        View('Home', 'home_manager'),
+        View('logout', 'logout')
     )
 
 @webapp.route('/')
