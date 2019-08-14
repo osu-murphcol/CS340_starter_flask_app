@@ -141,7 +141,7 @@ def search():
             query = 'SELECT DISTINCT type FROM Final_MenuItems'
             food_types = execute_query(db_connection, query).fetchall()
             if request.method=='GET':
-                return render_template('home_customer.html', food_types=food_types)
+                return render_template('search.html', food_types=food_types)
             if request.method=='POST':
                 query = 'SELECT * FROM Final_MenuItems NATURAL JOIN Final_FoodServices WHERE type = \'%s\'' % (request.form['type'])
                 food_items = execute_query(db_connection, query).fetchall()
