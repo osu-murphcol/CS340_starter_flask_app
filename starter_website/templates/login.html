@@ -1,5 +1,12 @@
-<html>
-<head><title>Login</title></head>
+
+{% extends "bootstrap/base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+{% block content %}
 <h3>Select your user:</h3>
 <form id="user" action="/login" method="post">
     User: <select name="email"> 
@@ -10,4 +17,4 @@
     </select><br>
     <input type="submit" value="Submit">
  </form>
-</html>
+ {% endblock %}
