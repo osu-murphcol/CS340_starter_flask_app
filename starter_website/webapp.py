@@ -68,7 +68,7 @@ def login():
             return redirect(url_for('home_manager'))
         return redirect(url_for('login'))
 
-@webapp.route('/home_manager',methods=['POST','GET'])
+@webapp.route('/home_manager', methods=['POST','GET'])
 def home_manager():
     if 'email' in session:
         email = session['email']
@@ -130,11 +130,23 @@ def add_item():
     email = session['email']
     return render_template('add_item.html')    
 
-@webapp.route('/search')
+@webapp.route('/search', methods=['POST','GET'])
 def search():
-    db_connection = connect_to_database()
-    email = session['email']
-    return render_template('search.html')    
+    if 'email' in session:
+        email = session['email']
+        db_connection = connect_to_database()
+        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[0] == 'C':
+            query = 'SELECT DISTINCT type FROM Final_MenuItems"
+            food_types = execute_query(db_connection, query).fetchall()
+            if request.method=='GET':
+                return render_template('home_customer.html', food_types=food_types)
+            if request.method=='POST':
+                query = 'SELECT * FROM Final_MenuItems NATURAL JOIN Final_FoodServices WHERE type = \'%s\'' % (request.form['type'])
+                food_items = execute_query(db_connection, query).fetchall()
+                return render_template('home_customer.html', food_types=food_types, food_items=food_items)
+    return redirect(url_for('login')) 
 
 
 #@webapp.route('/customer')

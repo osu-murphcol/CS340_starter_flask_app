@@ -8,6 +8,23 @@
 
 {% block content %}
 <h3>Search for a food type:</h3>
-<form id="user" action="/search" method="post">
- </form>
- {% endblock %}
+<form id="foodtypes" action="/search" method="post">
+  Food type: <select name="type">
+      {% for type in food_types %}
+      {{type}}
+      <option value="{{type}}">{{type}}</option>
+      {% endfor %}
+  </select><br>
+  <input type="submit" value="Submit">
+</form>
+<table>
+  <thead>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Store</th>
+  </thead>
+  {% for item in food_items %}
+    <tr> <td> {item[3]} </td> <td> {item[4]} </td> <td> {item[5]} </td> <td> {item[5]} </td> </tr>
+  {% endfor %}
+</table>
+{% endblock %}
