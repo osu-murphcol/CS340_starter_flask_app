@@ -53,18 +53,22 @@ def F():
         result_fSIDs = [row[0] for row in fSIDresult]
         return render_template('F.html', user=result, foods=fresult, fSIDs=result_fSIDs)
     elif request.method == 'POST':
-        session['ItemID'] = request.form['ItemID']
-        ItemID = session['ItemID']
+        uquery='Select max(ItemID) FROM Final_MenuItems'
+        uresult = 1 + execute_query(db_connection, uquery).fetchone()
+        fquery='Select max(foodServiceID) FROM Final_MenuItems'
+        fresult = 1 + execute_query(db_connection, uquery).fetchone()
+        #session['ItemID'] = request.form['ItemID']
+        #ItemID = session['ItemID']
         session['Type'] = request.form['Type']
         Type = session['Type']
-        session['fSID'] = request.form['fSID']
-        fSID = session['fSID']
+        #session['fSID'] = request.form['fSID']
+        #fSID = session['fSID']
         session['itemName'] = request.form['itemName']
         itemName = session['itemName']
         session['itemPrice'] = request.form['itemPrice']
         itemPrice = session['itemPrice']
         db_connection = connect_to_database()
-        query = 'INSERT INTO Final_MenuItems VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (ItemID,Type,fSID,itemName,itemPrice)
+        query = 'INSERT INTO Final_MenuItems VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uquery,Type,fquery,itemName,itemPrice)
         execute_query(db_connection, query)
         equery = 'SELECT type from Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, equery).fetchone()
