@@ -138,7 +138,7 @@ def search():
         query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[0] == 'C':
-            query = 'SELECT DISTINCT type FROM Final_MenuItems"
+            query = 'SELECT DISTINCT type FROM Final_MenuItems'
             food_types = execute_query(db_connection, query).fetchall()
             if request.method=='GET':
                 return render_template('home_customer.html', food_types=food_types)
