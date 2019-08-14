@@ -36,7 +36,13 @@ def login():
         db_connection = connect_to_database()
         query = 'SELECT type from Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        return redirect(url_for(result[0]))
+        if result[0] == 'C':
+            return redirect(url_for('home_customer'))
+        elif result[0] == 'D':
+            return redirect(url_for('home_driver'))
+        elif result[0] == 'F':
+            return redirect(url_for('home_manager'))
+        return redirect(url_for('login'))
 
 @webapp.route('/home_manager',methods=['POST','GET'])
 def home_manager():
@@ -79,7 +85,7 @@ def home_driver():
         db_connection = connect_to_database()
         query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'D'
+        if result[0] == 'D':
             return render_template('home_driver.html', user=result)  
     return redirect(url_for(login))
 
@@ -89,7 +95,7 @@ def home_driver():
         db_connection = connect_to_database()
         query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'C'
+        if result[0] == 'C':
             return render_template('home_customer.html', user=result)  
     return redirect(url_for(login))
 

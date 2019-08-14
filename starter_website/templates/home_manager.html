@@ -1,0 +1,62 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Food Service Management{% endblock %}
+
+{% block navbar %}
+{{nav.mynavbar.render()}}
+{% endblock %}
+
+{% block content %}
+
+{% if user %}
+<!--Welcome Manager of the Food Service to the Page-->
+<h3>
+    Welcome, Manager {{user[2]}} {{user[3]}}
+</h3>
+<!--Present Manager with Their Existing Offerings-->
+<h4>
+    Your Menu:
+</h4>
+<table>
+    <tr>
+        <th>type</th>
+        <th>itemName</th>
+        <th>itemPrice</th>
+    </tr>
+    {% for food in foods %}
+    <tr>
+        <th>{{food[1]}}</th>
+        <th>{{food[3]}}</th>
+        <th>{{food[4]}}</th>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<!--Give Manager Option to Add More Foods-->
+<h4> Add New Menu Item:</h4>
+<form id="newfood" action="/home" method="post">
+    <br>
+    Type:
+    <input type="text" name="Type">
+    <br>
+    Item Name:
+    <input type="text" name="itemName">
+    <br>
+    Item Price:
+    <input type="number" name="itemPrice">
+    <br>
+    <input type="submit" value="Submit" onClick="window.location.reload();">
+</form>
+
+
+
+
+
+<a href='/logout'>Click here to log out</a>
+{% else %}
+You are not logged in
+<br>
+<a href='/login'>Click here to log in</a>
+{% endif %}
+
+{% endblock %}
