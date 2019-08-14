@@ -145,7 +145,7 @@ def search():
             if request.method=='POST':
                 query = 'SELECT * FROM Final_MenuItems NATURAL JOIN Final_FoodServices WHERE type = \'%s\'' % (request.form['type'])
                 food_items = execute_query(db_connection, query).fetchall()
-                return render_template('home_customer.html', food_types=food_types, food_items=food_items)
+                return render_template('search.html', food_types=food_types, food_items=food_items)
     return redirect(url_for('login')) 
 
 
