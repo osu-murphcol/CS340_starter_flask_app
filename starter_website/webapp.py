@@ -90,6 +90,7 @@ def home_driver():
     return redirect(url_for(login))
 
 @webapp.route('/home_customer')
+def home_customer():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
