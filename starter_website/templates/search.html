@@ -3,28 +3,33 @@
 {% block title %}Search{% endblock %}
 
 {% block navbar %}
-{{nav.nav_customer.render()}}
+  {{nav.nav_customer.render()}}
 {% endblock %}
 
-{% block content %}
-<h3>Search for a food type:</h3>
-<form id="foodtypes" action="/search" method="post">
-  Food type: <select name="type">
-      {% for type in food_types %}
-      {{type[0]}}
-      <option value="{{type[0]}}">{{type[0]}}</option>
-      {% endfor %}
-  </select><br>
-  <input type="submit" value="Submit">
-</form>
-<table>
-  <thead>
-      <th>Store</th>
-      <th>Item</th>
-      <th>Price</th>
-  </thead>
-  {% for item in food_items %}
-    <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> Add to cart </td> </tr>
-  {% endfor %}
-</table>
+{% block body %}
+
+  {% block content %}
+  <h3>Search for a food type:</h3>
+  <form id="foodtypes" action="/search" method="post">
+    Food type: <select name="type">
+        {% for type in food_types %}
+        {{type[0]}}
+        <option value="{{type[0]}}">{{type[0]}}</option>
+        {% endfor %}
+    </select><br>
+    <input type="submit" value="Submit">
+  </form>
+  <table class="table table-hover">
+    <thead>
+        <th>Store</th>
+        <th>Item</th>
+        <th>Price</th>
+    </thead>
+    {% for item in food_items %}
+      <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> Add to cart </td> </tr>
+    {% endfor %}
+  </table>
+
+  {% endblock %}
+
 {% endblock %}
