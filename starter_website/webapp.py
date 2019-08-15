@@ -208,7 +208,7 @@ def remove_item():
                         session.pop('cart', None)
                     else:
                         session['cart'].remove(request.form['item_id'])
-    return redirect(url_for('cart')) 
+    return redirect(url_for('cart'), code=303) 
 
 
 @webapp.route('/change_address', methods=['POST','GET'])
