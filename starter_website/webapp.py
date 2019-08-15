@@ -191,7 +191,7 @@ def cart():
                 return redirect(url_for('cart'), code=303) 
     return redirect(url_for('login')) 
 
-@webapp.route('/remove_item', methods=['POST'])
+@webapp.route('/remove_cart_item', methods=['POST'])
 def remove_item():
     if 'email' in session:
         email = session['email']
