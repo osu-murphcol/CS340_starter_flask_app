@@ -23,6 +23,7 @@ def nav_customer():
         View('Home', 'home_customer'),
         View('Search', 'search'),
         View('View Cart', 'cart'),
+        View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
 
@@ -31,6 +32,7 @@ def nav_driver():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_driver'),
+        View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
 
@@ -40,6 +42,7 @@ def nav_manager():
         'Food Delivery Inc.',
         View('Home', 'home_manager'),
         View('Add Item', 'add_item'),
+        View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
 
