@@ -203,7 +203,7 @@ def cart():
     return redirect(url_for('login')) 
 
 @webapp.route('/remove_cart_item', methods=['POST'])
-def remove_item():
+def remove_cart_item():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
