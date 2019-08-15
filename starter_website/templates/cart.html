@@ -1,0 +1,16 @@
+
+{% extends "bootstrap/base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block navbar %}
+{{nav.nav_customer.render()}}
+{% endblock %}
+
+{% block content %}
+<h3>Here is your cart:</h3>
+  {% for item in cart %}
+    <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> Remove Item </td> </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
