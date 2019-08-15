@@ -1,0 +1,24 @@
+
+{% extends "bootstrap/base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block navbar %}
+{{nav.nav_customer.render()}}
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+<table class="table table-hover">
+  <thead>
+      <th>Order Time</th>
+      <th>Order Email</th>
+      <th>Order Address</th>
+  </thead>
+  {% for order in orders %}
+    <tr> <td> {{order[2]}} </td> <td> {{order[3]}} </td> <td> {{order[4]}} </td> <td> <form id="cart_item" action="/cart" method="post"><input type="hidden" name="item_id" value="{{item[0]}}"><input type="submit" value="Add to cart"></form> </td> </tr>
+  {% endfor %}
+</table>
+</div>
+
+{% endblock %}
