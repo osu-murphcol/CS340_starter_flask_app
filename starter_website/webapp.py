@@ -168,10 +168,12 @@ def change_address():
     if 'email' in session:
         db_connection = connect_to_database()
         email = session['email']
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        user = execute_query(db_connection, query).fetchone()
         query = 'SELECT * FROM Final_Addresses WHERE email = \'%s\'' % (email)
-        result = execute_query(db_connection, query).fetchone()
+        address = execute_query(db_connection, query).fetchone()
         if request.method=='GET': 
-            return render_template('change_address.html', address=result)
+            return render_template('change_address.html', user=user, address=address)
         if request.method=='POST':
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
             result = execute_query(db_connection, query)
