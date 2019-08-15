@@ -9,22 +9,18 @@
 {% block content %}
 
 <div class="container">
-    <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading"><h3>Select your user:</h3></div>
-            <form id="user" action="/login" method="post">
-                <div class="form-group">
-                        <label for="email">User:</label>
-                    <select name="email"> 
-                    {% for email in emails %}
-                    {{email}}
-                    <option value="{{email}}">{{email}}</option>
-                    {% endfor %}
-                    </select>
-                </div>
-                <input type="submit" class="btn btn-default" value="Submit">
-            </form>
+    <h3>Select your user:</h3></div>
+    <form id="user" action="/login" method="post">
+        <div class="form-group">
+            <label for="email">User:</label>
+            <select name="email"> 
+            {% for email in emails %}
+            {{email}}
+            <option value="{{email}}">{{email}}</option>
+            {% endfor %}
+            </select>
         </div>
-    </div>
+        <input type="submit" class="btn btn-default" value="Submit">
+    </form>
  </div>
  {% endblock %}
