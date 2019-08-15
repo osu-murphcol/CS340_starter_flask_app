@@ -230,7 +230,7 @@ def place_order():
         if result[1] == 'C':
                 query = 'INSERT INTO Final_Orders (status, orderEmail, street) VALUES (\'%s\',\'%s\',\'%s\')' % ('P', email, result[4])
                 execute_query(db_connection, query)
-                query = 'SELECT LAST_INSERT_ID() FROM Final_Orders'
+                query = 'SELECT LAST_INSERT_ID()'
                 auto_id = execute_query(db_connection, query)
                 for item in session['cart']:
                     query = 'INSERT INTO Final_ConsistOf (orderID, itemID, orderCount) VALUES (\'%s\',\'%s\',\'%s\')' % (auto_id, item, '1')
