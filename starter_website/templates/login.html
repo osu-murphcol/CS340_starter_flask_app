@@ -10,7 +10,7 @@
 <div style='width:200px;margin:0 auto;'>     
         <h3>Select your user:</h3>
         <form id="user" action="/login" method="post">
-            User: <select name="email">
+            <label for="email">User:</label><select name="email">
                 {% for email in emails %}
                 {{email}}
                 <option value="{{email}}">{{email}}</option>
