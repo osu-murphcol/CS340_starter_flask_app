@@ -206,11 +206,12 @@ def remove_item():
                 if 'cart' in session:
                     cart = session['cart']
                     print(request.form['item_id'])
-                    if cart.count() == 1 :
-                        session.pop('cart', None)
-                    elif request.form['item_id'] in cart: 
+                    #if cart.count() == 1 :
+                    #    session.pop('cart', None)
+                    if request.form['item_id'] in cart: 
                         cart.remove(request.form['item_id'])
-    return redirect(url_for('cart')) 
+                    
+    return redirect(url_for('cart'), code=303) 
 
 
 @webapp.route('/change_address', methods=['POST','GET'])
