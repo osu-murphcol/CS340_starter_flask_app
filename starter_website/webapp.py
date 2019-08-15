@@ -175,7 +175,7 @@ def change_address():
         query = 'SELECT * FROM Final_Users NATURAL JOIN Final_Addresses WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if request.method=='GET': 
-            return render_template('change_address.html' address=result)
+            return render_template('change_address.html', address=result)
         if request.method=='POST':
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
             return redirect(url_for('change_address'))   
