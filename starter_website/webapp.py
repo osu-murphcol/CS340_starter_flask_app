@@ -190,9 +190,21 @@ def cart():
                 return redirect(url_for('cart')) 
     return redirect(url_for('login')) 
 
-#@webapp.route('/customer')
-#def add_item():
+@webapp.route('/remove_item', methods=['POST'])
+def remove_item():
+    if 'email' in session:
+        email = session['email']
+        db_connection = connect_to_database()
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[1] == 'C':
+            if request.method=='POST':
+                if 'cart' in session:
+                    cart = session['cart']
+                    if request.form['item_id'] in cart: cart.remove(request.form['item_id'])
+    return redirect(url_for('cart')) 
 
+  
 
 @webapp.route('/change_address', methods=['POST','GET'])
 def change_address():

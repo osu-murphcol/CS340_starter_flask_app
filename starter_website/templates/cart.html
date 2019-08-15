@@ -9,8 +9,13 @@
 {% block content %}
 <h3>Here is your cart:</h3>
   {% for item in cart %}
-<table>
-    <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> Remove Item </td> </tr>
+<table class="table table-hover">
+    <thead>
+        <th>Item</th>
+        <th>Type</th>
+        <th>Price</th>
+    </thead>
+    <tr> <td> {{item[3]}} </td> <td> {{item[1]}} </td> <td> {{item[4]}} </td> <td> Remove Item </td> </tr>
   {% endfor %}
 </table>
 
