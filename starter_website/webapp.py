@@ -201,10 +201,11 @@ def remove_item():
             if request.method=='POST':
                 if 'cart' in session:
                     cart = session['cart']
+                    print(cart)
+                    print(item_id)
                     if request.form['item_id'] in cart: cart.remove(request.form['item_id'])
     return redirect(url_for('cart')) 
 
-  
 
 @webapp.route('/change_address', methods=['POST','GET'])
 def change_address():
@@ -234,7 +235,6 @@ def orders_driver():
             query = 'SELECT * FROM Final_Orders'
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_driver.html', orders=orders)
-
     return redirect(url_for('home'))   
 
 @webapp.route('/orders_manager')
