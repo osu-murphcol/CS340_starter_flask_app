@@ -15,7 +15,7 @@
         <div class="panel-body"> <div class="panel-body"></div> 
           <form id="foodtypes" action="/search" method="post">
             <div class="form-group">
-              Food type: <select class="form-control" name="type">
+              <label for="Type">Food type:</label><select class="form-control" name="type">
                   {% for type in food_types %}
                   {{type[0]}}
                   <option value="{{type[0]}}">{{type[0]}}</option>
