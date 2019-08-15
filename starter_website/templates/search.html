@@ -6,8 +6,6 @@
 {{nav.nav_customer.render()}}
 {% endblock %}
 
-{% block body %}
-
 {% block content %}
 <h3>Search for a food type:</h3>
 <form id="foodtypes" action="/search" method="post">
@@ -29,7 +27,5 @@
     <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> Add to cart </td> </tr>
   {% endfor %}
 </table>
-
-{% endblock %}
 
 {% endblock %}
