@@ -201,8 +201,7 @@ def remove_item():
             if request.method=='POST':
                 if 'cart' in session:
                     cart = session['cart']
-                    print(cart)
-                    print(item_id)
+                    print(request.form['item_id'])
                     if request.form['item_id'] in cart: cart.remove(request.form['item_id'])
     return redirect(url_for('cart')) 
 
