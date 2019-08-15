@@ -75,7 +75,7 @@ def login():
         return redirect(url_for('login'))
 
 @webapp.route('/home')
-def login():
+def home():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
