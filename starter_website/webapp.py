@@ -178,7 +178,7 @@ def cart():
                     result = []
                     for item_id in session['cart']:
                         query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
-                        result += execute_query(db_connection, query).fetchone()
+                        result.append(execute_query(db_connection, query).fetchone())
                     return render_template('cart.html', cart=result)
                 else:
                     return render_template('emptycart.html')
@@ -242,6 +242,7 @@ def orders_manager():
 @webapp.route('/logout')
 def logout():
     session.pop('email', None)
+    session.pop('cart', None)
     return redirect(url_for('login'))
 
 
