@@ -2,7 +2,13 @@
 {% block title %}Change Address{% endblock %}
 
 {% block navbar %}
+{% if user[1] == 'C' %}
 {{nav.nav_customer.render()}}
+{% elif user[1] == 'D' %}
+{{nav.nav_driver.render()}}
+{% elif user[1] == 'F' %}
+{{nav.nav_manager.render()}}
+{% endif %}
 {% endblock %}
 
 {% block content %}
