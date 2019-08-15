@@ -38,7 +38,7 @@
       <th>Price</th>
   </thead>
   {% for item in food_items %}
-    <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> <form id="cart_item" action="/cart" method="post"><input type="hidden" name="item_id" value="{{item[0]}}"><input type="submit" value="Add to cart"></form> </td> </tr>
+    <tr> <td> {{item[5]}} </td> <td> {{item[3]}} </td> <td> {{item[4]}} </td> <td> <form id="cart_item" action="/cart" method="post"><input type="hidden" name="item_id" value="{{item[1]}}"><input type="submit" value="Add to cart"></form> </td> </tr>
   {% endfor %}
 </table>
 </div>

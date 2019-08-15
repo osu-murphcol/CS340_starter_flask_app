@@ -184,11 +184,42 @@ def cart():
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'C':
-            return render_template('cart.html')
+            if request.method=='GET':
+                if 'cart' in session:
+                    result = []
+                    for item_id in session['cart']:
+                        query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
+                        result.append(execute_query(db_connection, query).fetchone())
+                    return render_template('cart.html', cart=result)
+                else:
+                    return render_template('emptycart.html')
+            elif request.method=='POST':
+                if 'cart' not in session:
+                    session['cart'] = []
+                session['cart'].append(request.form['item_id'])
+                result = []
+                for item_id in session['cart']:
+                    query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
+                    result.append(execute_query(db_connection, query).fetchone())
+                print(session['cart'])
+                return render_template('cart.html', cart=result)
     return redirect(url_for('login')) 
 
-#@webapp.route('/customer')
-#def add_item():
+@webapp.route('/remove_item', methods=['POST'])
+def remove_item():
+    if 'email' in session:
+        email = session['email']
+        db_connection = connect_to_database()
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[1] == 'C':
+            if request.method=='POST':
+                if 'cart' in session:
+                    if len(session['cart']) == 1:
+                        session.pop('cart', None)
+                    else:
+                        session['cart'].remove(request.form['item_id'])
+    return redirect(url_for('cart')) 
 
 
 @webapp.route('/change_address', methods=['POST','GET'])
@@ -219,7 +250,6 @@ def orders_driver():
             query = 'SELECT * FROM Final_Orders'
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_driver.html', orders=orders)
-
     return redirect(url_for('home'))   
 
 @webapp.route('/orders_manager')
@@ -239,6 +269,7 @@ def orders_manager():
 @webapp.route('/logout')
 def logout():
     session.pop('email', None)
+    session.pop('cart', None)
     return redirect(url_for('login'))
 
 
