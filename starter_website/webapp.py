@@ -220,17 +220,17 @@ def remove_cart_item():
     return redirect(url_for('cart'), code=303) 
 
 
-@webapp.route('/place_order', methods=['POST'])
+@webapp.route('/place_order', methods=['POST','GET'])
 def place_order():
-      if 'email' in session:
+    if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
         query = 'SELECT * FROM Final_Users NATURAL JOIN Final_Addresses WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'C':
-            if request.method=='POST':
                 print(result)
                 #query = 'INSERT INTO Final_Orders VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uresult[0],Type,fSID,itemName,itemPrice)
+    return redirect(url_for('login'))   
                 
 
 @webapp.route('/change_address', methods=['POST','GET'])

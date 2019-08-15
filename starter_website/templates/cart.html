@@ -20,7 +20,7 @@
       <tr> <td> {{item[3]}} </td> <td> {{item[1]}} </td> <td> {{item[4]}} </td> <td> <form id="cart_item" action="/remove_cart_item" method="post"><input type="hidden" name="item_id" value="{{item[0]}}"><input type="submit" value="Remove Item"> </form></td> </tr>
     {% endfor %}
   </table>
-  <form id="cart_item" action="/place_order" method="get"><input type="submit" value="Place Order"></form>
+  <form id="cart_item" action="/place_order" method="post"><input type="submit" value="Place Order"></form>
 </div>
 
 
