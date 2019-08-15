@@ -187,6 +187,7 @@ def cart():
                 if 'cart' not in session:
                     session['cart'] = []
                 session['cart'].append(request.form['item_id'])
+                session.modified = True
                 return redirect(url_for('cart'), code=303) 
     return redirect(url_for('login')) 
 
@@ -204,6 +205,7 @@ def remove_item():
                         session.pop('cart', None)
                     else:
                         session['cart'].remove(request.form['item_id'])
+                        session.modified = True
     return redirect(url_for('cart'), code=303) 
 
 
