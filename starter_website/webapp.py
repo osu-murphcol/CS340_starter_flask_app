@@ -206,7 +206,9 @@ def remove_item():
                 if 'cart' in session:
                     cart = session['cart']
                     print(request.form['item_id'])
-                    if request.form['item_id'] in cart: 
+                    if cart.count() == 1 :
+                        session.pop('cart', None)
+                    elif request.form['item_id'] in cart: 
                         cart.remove(request.form['item_id'])
     return redirect(url_for('cart')) 
 
