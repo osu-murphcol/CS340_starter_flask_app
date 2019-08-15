@@ -177,7 +177,7 @@ def cart():
                 if 'cart' in session:
                     result = []
                     for item_id in session['cart']:
-                        query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (item_id)
+                        query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
                         result += execute_query(db_connection, query).fetchone()
                     return render_template('cart.html', cart=result)
                 else:
