@@ -228,12 +228,11 @@ def place_order():
         query = 'SELECT * FROM Final_Users NATURAL JOIN Final_Addresses WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'C':
-                print(result)
                 query = 'INSERT INTO Final_Orders (status, orderEmail, street) VALUES (\'%s\',\'%s\',\'%s\')' % ('P', email, result[4])
-                print(execute_query(db_connection, query))
-                #for item in session['cart']:
-                #    query = 'INSERT INTO Final_ConsistOf (orderID, itemID, orderCount) VALUES (\'%s\',\'%s\',\'%s\')' % ('P', item, '1')
-                #    execute_query(db_connection, query)
+                auto_id = 'SELECT LAST_INSERT_ID() FROM Final_Orders;
+                for item in session['cart']:
+                    query = 'INSERT INTO Final_ConsistOf (orderID, itemID, orderCount) VALUES (\'%s\',\'%s\',\'%s\')' % (auto_id, item, '1')
+                    execute_query(db_connection, query)
                 
     return redirect(url_for('login'))   
                 
