@@ -33,25 +33,31 @@
 <!--Give Manager Option to Add More Foods-->
 <h4> Add New Menu Item:</h4>
 <div class="container">
-<form id="newfood" action="/home_manager" method="post" class="form-group">
-     <br>
-    Location: <select name="fSID">
+<form id="newfood" class="form-control" action="/home_manager" method="post">
+    <div class="form-group">
+    Location: <select class="form-control" name="fSID">
         {% for location in locations %}
         {{location}}
                   <option value="{{location[0]}}">{{location[1]}}</option>
         {% endfor %}
     </select>
-    <br>
-    Type:
-    <input type="text" name="Type">
-    <br>
-    Item Name:
-    <input type="text" name="itemName">
-    <br>
-    Item Price:
-    <input type="number" name="itemPrice">
-    <br>
-    <input type="submit" value="Submit" onClick="window.location.reload();">
+    </div>
+    <div class="form-group">
+    <div class="form-group">
+        Type:
+        <input type="text" class="form-control" name="Type">
+    </div>
+    <div class="form-group">
+        Item Name:
+        <input type="text" class="form-control" name="itemName">
+    </div>
+    <div class="form-group">
+        Item Price:
+        <input type="number" class="form-control" name="itemPrice">
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Submit" onClick="window.location.reload();">
+    </div>=
 </form>
 </div>
 {% endblock %}
