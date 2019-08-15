@@ -7,15 +7,15 @@
 
 {% block content %}
 <!--Welcome Manager of the Food Service to the Page-->
-<h3>
-    Welcome, Manager {{user[2]}} {{user[3]}}
-</h3>
+<div class="container">
+    <h3>Welcome, Manager {{user[2]}} {{user[3]}}</h3>
+</div>
 <!--Present Manager with Their Existing Offerings-->
 
 <div class="container">
     <div class="panel-group">
             <div class="panel panel-default">
-                <div class="panel-heading">Your Menu:</div>
+                <div class="panel-heading"><h4>Your Menu:</h4></div>
                 <div class="panel-body">
                     <table class="table table-hover">
                         <tr>
@@ -40,7 +40,7 @@
 
 <!--Give Manager Option to Add More Foods-->
 <div class="container">
-    <h3> Add New Menu Item:</h3>
+    <h4> Add New Menu Item:</h4>
     <form id="newfood" action="/home_manager" method="post">
         <div class="form-group">
             <label for="fSID">Location:</label>

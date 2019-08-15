@@ -77,9 +77,9 @@ def home_manager():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
-        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'F':
+        if result[1] == 'F':
             if request.method=='GET':
                 fquery= 'SELECT * FROM Final_MenuItems WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
                 fresult = execute_query(db_connection, fquery).fetchall()
