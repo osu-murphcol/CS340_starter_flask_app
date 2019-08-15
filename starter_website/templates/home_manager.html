@@ -33,6 +33,13 @@
 <!--Give Manager Option to Add More Foods-->
 <h4> Add New Menu Item:</h4>
 <form id="newfood" action="/home" method="post">
+     <br>
+    Location: <select name="fSID">
+        {% for location in locations %}
+        {{location}}
+                  <option value="{{location[0]}}">{{location[1]}}</option>
+        {% endfor %}
+    </select>
     <br>
     Type:
     <input type="text" name="Type">
