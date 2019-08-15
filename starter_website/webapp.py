@@ -234,6 +234,7 @@ def place_order():
                 auto_id = execute_query(db_connection, query)
                 for item in session['cart']:
                     query = 'INSERT INTO Final_ConsistOf (orderID, itemID, orderCount) VALUES (\'%s\',\'%s\',\'%s\')' % (auto_id, item, '1')
+                    print(query)
                     execute_query(db_connection, query)
                 
     return redirect(url_for('login'))   
