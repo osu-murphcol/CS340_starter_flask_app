@@ -173,7 +173,15 @@ def cart():
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'C':
-            return render_template('cart.html')
+            if request.method=='GET':
+                result = []
+                for item_id in session['cart']:
+                    query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (item_id)
+                    result += execute_query(db_connection, query).fetchone()
+                return render_template('cart.html', cart=result)
+            if request.method=='POST':
+                session['cart'] += request.form['item_id']
+            return redirect(url_for('cart')) 
     return redirect(url_for('login')) 
 
 #@webapp.route('/customer')
