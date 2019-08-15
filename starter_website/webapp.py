@@ -186,8 +186,11 @@ def cart():
                 if 'cart' not in session:
                     session['cart'] = []
                 session['cart'].append(request.form['item_id'])
-                print(session['cart'])
-                return redirect(url_for('cart')) 
+                result = []
+                for item_id in session['cart']:
+                    query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
+                    result.append(execute_query(db_connection, query).fetchone())
+                return render_template('cart.html', cart=result)
     return redirect(url_for('login')) 
 
 @webapp.route('/remove_item', methods=['POST'])
