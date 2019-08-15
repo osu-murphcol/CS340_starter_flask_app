@@ -181,7 +181,7 @@ def cart():
                         result += execute_query(db_connection, query).fetchone()
                     return render_template('cart.html', cart=result)
                 else:
-                    return render_template('cart.html')
+                    return render_template('emptycart.html')
             elif request.method=='POST':
                 session['cart'] += request.form['item_id']
                 query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (request.form['item_id'])
