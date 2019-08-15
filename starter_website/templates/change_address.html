@@ -8,10 +8,10 @@
 {% block content %}
 <h3>Please ensure your address is correct: </h3>
 <form id="update_address" action="/change_address}}" method="post">
-  Street: <input type="text" name="street" value = "{{ address[1] }}"><br>
-  ZIP: <input type="text" name="zip" value = "{{ address[2] }}" ><br>
-  City: <input type="text" name="city" value = "{{ address[3] }}" ><br>
-  State: <input type="text" name="state" value = "{{ address[4] }}" ><br>
+  Street: <input type="text" name="street" value = "{{ address[0] }}"><br>
+  ZIP: <input type="text" name="zip" value = "{{ address[1] }}" ><br>
+  City: <input type="text" name="city" value = "{{ address[2] }}" ><br>
+  State: <input type="text" name="state" value = "{{ address[3] }}" ><br>
     <input type="submit" value="Submit">
  </form>
 {% endblock %}
