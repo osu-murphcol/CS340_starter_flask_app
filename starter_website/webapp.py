@@ -107,9 +107,9 @@ def home_driver():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
-        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'D':
+        if result[1] == 'D':
             return render_template('home_driver.html', user=result)  
     return redirect(url_for('login'))
 
@@ -118,9 +118,9 @@ def home_customer():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
-        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'C':
+        if result[1] == 'C':
             return render_template('home_customer.html', user=result)  
     return redirect(url_for('login'))
 
