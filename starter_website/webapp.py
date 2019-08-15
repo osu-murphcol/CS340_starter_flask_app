@@ -183,7 +183,8 @@ def cart():
                 return render_template('cart.html', cart=result)
             if request.method=='POST':
                 session['cart'] += request.form['item_id']
-                print("item_id:" + request.form['item_id'])
+                query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (item_id)
+                result += execute_query(db_connection, query).fetchone()
                 return redirect(url_for('cart')) 
     return redirect(url_for('login')) 
 
