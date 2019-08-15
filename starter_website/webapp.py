@@ -229,7 +229,12 @@ def place_order():
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'C':
                 print(result)
-                #query = 'INSERT INTO Final_Orders VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uresult[0],Type,fSID,itemName,itemPrice)
+                query = 'INSERT INTO Final_Orders (status, orderEmail, street) VALUES (\'%s\',\'%s\',\'%s\')' % ('P', email, result[4])
+                print(execute_query(db_connection, query))
+                #for item in session['cart']:
+                #    query = 'INSERT INTO Final_ConsistOf (orderID, itemID, orderCount) VALUES (\'%s\',\'%s\',\'%s\')' % ('P', item, '1')
+                #    execute_query(db_connection, query)
+                
     return redirect(url_for('login'))   
                 
 
