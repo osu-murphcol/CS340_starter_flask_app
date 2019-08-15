@@ -5,8 +5,10 @@
 {% block navbar %}
 {{nav.nav_customer.render()}}
 {% endblock %}
-{{cart}}
+
 {% block content %}
+
+{{cart}}
 <h3>Here is your cart:</h3>
   {% for item in cart %}
 <table class="table table-hover">
