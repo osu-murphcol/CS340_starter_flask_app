@@ -204,7 +204,7 @@ def remove_item():
         if result[1] == 'C':
             if request.method=='POST':
                 if 'cart' in session:
-                    session['cart'].pop(request.form['item_id'])
+                    session['cart'].remove(request.form['item_id'])
                     
     return redirect(url_for('cart')) 
 
