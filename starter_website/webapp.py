@@ -190,6 +190,7 @@ def cart():
                 for item_id in session['cart']:
                     query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
                     result.append(execute_query(db_connection, query).fetchone())
+                print(session['cart'])
                 return render_template('cart.html', cart=result)
     return redirect(url_for('login')) 
 
