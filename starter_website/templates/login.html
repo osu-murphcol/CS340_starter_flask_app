@@ -7,20 +7,16 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="container">
-    <h3>Select your user:</h3>
-    <form id="user" action="/login" method="post">
-        <div class="form-group">
-            <label for="email">User:</label>
-            <select name="email"> 
-            {% for email in emails %}
-            {{email}}
-            <option value="{{email}}">{{email}}</option>
-            {% endfor %}
-            </select>
-        </div>
-        <input type="submit" class="btn btn-default" value="Submit">
-    </form>
- </div>
+<div style='width:200px;margin:0 auto;'>     
+        <h3>Select your user:</h3>
+        <form id="user" action="/login" method="post">
+            User: <select name="email">
+                {% for email in emails %}
+                {{email}}
+                <option value="{{email}}">{{email}}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" value="Submit">
+        </form>
+</div>
  {% endblock %}
