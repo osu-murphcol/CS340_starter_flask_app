@@ -176,6 +176,7 @@ def cart():
             if request.method=='GET':
                 if 'cart' in session:
                     result = []
+                    print(session['cart'])
                     for item_id in session['cart']:
                         query = 'SELECT * FROM Final_MenuItems WHERE itemID = \'%s\'' % (item_id)
                         result.append(execute_query(db_connection, query).fetchone())
