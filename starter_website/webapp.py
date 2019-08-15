@@ -3,6 +3,7 @@ from db_connector.db_connector import connect_to_database, execute_query
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
+import sys
 
 nav = Nav()
 
@@ -48,27 +49,18 @@ def F():
         result = execute_query(db_connection, query).fetchone()
         fquery= 'SELECT * FROM Final_MenuItems WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
         fresult = execute_query(db_connection, fquery).fetchall()
-        fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
+        fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
         fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
-        result_fSIDs = [row[0] for row in fSIDresult]
-        return render_template('F.html', user=result, foods=fresult, fSIDs=result_fSIDs)
+        return render_template('F.html', user=result, foods=fresult, locations=fSIDresult)
     elif request.method == 'POST':
-        uquery='Select max(ItemID) FROM Final_MenuItems'
-        uresult = 1 + execute_query(db_connection, uquery).fetchone()
-        fquery='Select max(foodServiceID) FROM Final_MenuItems'
-        fresult = 1 + execute_query(db_connection, uquery).fetchone()
-        #session['ItemID'] = request.form['ItemID']
-        #ItemID = session['ItemID']
-        session['Type'] = request.form['Type']
-        Type = session['Type']
-        #session['fSID'] = request.form['fSID']
-        #fSID = session['fSID']
-        session['itemName'] = request.form['itemName']
-        itemName = session['itemName']
-        session['itemPrice'] = request.form['itemPrice']
-        itemPrice = session['itemPrice']
+        Type = request.form['Type']
+        fSID = request.form['fSID']
+        itemName = request.form['itemName']
+        itemPrice = request.form['itemPrice']
         db_connection = connect_to_database()
-        query = 'INSERT INTO Final_MenuItems VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uquery,Type,fquery,itemName,itemPrice)
+        uquery='Select (1+MAX(ItemID)) FROM Final_MenuItems'
+        uresult = execute_query(db_connection, uquery).fetchone()
+        query = 'INSERT INTO Final_MenuItems VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uresult,Type,fSID,itemName,itemPrice)
         execute_query(db_connection, query)
         equery = 'SELECT type from Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, equery).fetchone()
