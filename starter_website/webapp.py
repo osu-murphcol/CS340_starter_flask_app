@@ -98,7 +98,7 @@ def home_manager():
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'F':
             if request.method=='GET':
-                fquery= 'SELECT Final_FoodServices.serviceName, Final_MenuItems.type, Final_MenuItems.itemName, Final_MenuItems.itemPrice FROM Final_MenuItems JOIN Final_FoodServices on Final_MenuItems.foodServiceID = Final_FoodServices.foodServiceID WHERE Final_FoodServices.foodServiceID IN(SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
+                fquery= 'SELECT Final_FoodServices.serviceName, Final_MenuItems.type, Final_MenuItems.itemName, Final_MenuItems.itemPrice, Final_MenuItems.ItemID FROM Final_MenuItems JOIN Final_FoodServices on Final_MenuItems.foodServiceID = Final_FoodServices.foodServiceID WHERE Final_FoodServices.foodServiceID IN(SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
                 fresult = execute_query(db_connection, fquery).fetchall()
                 fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
                 fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
@@ -118,6 +118,17 @@ def home_manager():
                 result = execute_query(db_connection, equery).fetchone()
                 return redirect(url_for('home_manager'))
     return redirect(url_for('login')) 
+
+@webapp.route('/remove_item', methods=['POST','GET'])
+def remove_item():
+    if request.method=='POST':
+        itemID = request.form['to_remove']
+        db_connection = connect_to_database()
+        query='DELETE FROM Final_MenuItems WHERE ItemID=\'%s\'' % (itemID)
+        execute_query(db_connection, query)
+        return redirect(url_for('home_manager'))
+    return redirect(url_for('login'))
+
 
 @webapp.route('/home_driver')
 def home_driver():

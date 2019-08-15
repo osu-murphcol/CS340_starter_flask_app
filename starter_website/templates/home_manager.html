@@ -22,6 +22,7 @@
                             <th>Type</th>
                             <th>Name</th>
                             <th>Price</th>
+                            <th>Remove Item</th>
                         </tr>
                         {% for food in foods %}
                         <tr>
@@ -29,6 +30,10 @@
                             <th>{{food[1]}}</th>
                             <th>{{food[2]}}</th>
                             <th>{{food[3]}}</th>
+                            <th><form action="/remove_item" method="post">
+                                <input type=hidden value="{{ food[4] }}" name="to_remove">
+                                <input type="submit" class="btn btn-default" value="Remove" onClick="window.location.reload();">
+                            </form></th>
                         </tr>
                         {% endfor %}
 
