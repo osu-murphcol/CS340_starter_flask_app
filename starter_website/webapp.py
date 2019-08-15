@@ -32,6 +32,7 @@ def nav_driver():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_driver'),
+        View('View Orders', 'orders_driver'),
         View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
@@ -42,6 +43,7 @@ def nav_manager():
         'Food Delivery Inc.',
         View('Home', 'home_manager'),
         #View('Add Item', 'add_item'),
+        View('View Orders', 'orders_manager'),
         View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
@@ -72,6 +74,21 @@ def login():
             return redirect(url_for('home_manager'))
         return redirect(url_for('login'))
 
+@webapp.route('/home')
+def login():
+    if 'email' in session:
+        email = session['email']
+        db_connection = connect_to_database()
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[1] == 'C':
+            return redirect(url_for('home_customer'))
+        if result[1] == 'D':
+            return redirect(url_for('home_driver'))
+        if result[1] == 'F':
+            return redirect(url_for('home_manager'))
+    return redirect(url_for('login'))
+        
 @webapp.route('/home_manager', methods=['POST','GET'])
 def home_manager():
     if 'email' in session:
@@ -153,9 +170,9 @@ def cart():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
-        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[0] == 'C':
+        if result[1] == 'C':
             return render_template('cart.html')
     return redirect(url_for('login')) 
 
@@ -179,6 +196,35 @@ def change_address():
             result = execute_query(db_connection, query)
             return redirect(url_for('change_address'))   
     return redirect(url_for('login'))   
+
+@webapp.route('/orders_driver')
+def orders_driver():
+    if 'email' in session:
+        db_connection = connect_to_database()
+        email = session['email']
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[1] == 'D':
+            query = 'SELECT * FROM Final_Orders'
+            orders = execute_query(db_connection, query).fetchall()
+            return render_template('orders_driver.html', orders=orders)
+    return redirect(url_for('home'))   
+
+              
+
+@webapp.route('/orders_manager')
+def orders_manager():
+    if 'email' in session:
+        db_connection = connect_to_database()
+        email = session['email']
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[1] == 'D':
+            query = 'SELECT * FROM Final_Orders'
+            orders = execute_query(db_connection, query).fetchall()
+            return render_template('orders_manager.html', orders=orders)
+    return redirect(url_for('home'))   
+
 
 @webapp.route('/logout')
 def logout():
