@@ -178,6 +178,7 @@ def change_address():
             return render_template('change_address.html', address=result)
         if request.method=='POST':
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
+            result = execute_query(db_connection, query)
             return redirect(url_for('change_address'))   
     return redirect(url_for('login'))   
 
