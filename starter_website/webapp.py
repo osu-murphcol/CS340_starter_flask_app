@@ -172,7 +172,7 @@ def change_address():
     if 'email' in session:
         db_connection = connect_to_database()
         email = session['email']
-        query = 'SELECT * FROM Final_Users NATURAL JOIN Final_Addresses WHERE email = \'%s\'' % (email)
+        query = 'SELECT * FROM Final_Addresses WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if request.method=='GET': 
             return render_template('change_address.html', address=result)
