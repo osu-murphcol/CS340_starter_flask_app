@@ -41,7 +41,7 @@ def nav_manager():
     return Navbar(
         'Food Delivery Inc.',
         View('Home', 'home_manager'),
-        View('Add Item', 'add_item'),
+        #View('Add Item', 'add_item'),
         View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
