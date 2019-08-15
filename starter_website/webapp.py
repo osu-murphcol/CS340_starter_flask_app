@@ -208,9 +208,8 @@ def orders_driver():
             query = 'SELECT * FROM Final_Orders'
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_driver.html', orders=orders)
-    return redirect(url_for('home'))   
 
-              
+    return redirect(url_for('home'))   
 
 @webapp.route('/orders_manager')
 def orders_manager():
@@ -219,7 +218,7 @@ def orders_manager():
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
-        if result[1] == 'D':
+        if result[1] == 'F':
             query = 'SELECT * FROM Final_Orders'
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_manager.html', orders=orders)
