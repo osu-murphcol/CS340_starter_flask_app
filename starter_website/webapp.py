@@ -186,7 +186,8 @@ def cart():
             elif request.method=='POST':
                 if 'cart' not in session:
                     session['cart'] = []
-                session['cart'].append(request.form['item_id'])
+                car = session['cart']
+                cart.append(request.form['item_id'])
                 return redirect(url_for('cart')) 
     return redirect(url_for('login')) 
 
