@@ -178,6 +178,8 @@ def cart():
                 for item_id in session['cart']:
                     query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (item_id)
                     result += execute_query(db_connection, query).fetchone()
+                    print("result:" + result)
+                    print("item_id:" + item_id)
                 return render_template('cart.html', cart=result)
             if request.method=='POST':
                 session['cart'] += request.form['item_id']
