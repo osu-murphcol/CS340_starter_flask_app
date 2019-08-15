@@ -172,14 +172,13 @@ def cart():
         db_connection = connect_to_database()
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
+        print("GOTHERE")
         if result[1] == 'C':
             if request.method=='GET':
                 result = []
                 for item_id in session['cart']:
                     query = 'SELECT * FROM Final_MenuItems WHERE id = \'%s\'' % (item_id)
                     result += execute_query(db_connection, query).fetchone()
-                    print("result:" + result)
-                    print("item_id:" + item_id)
                 return render_template('cart.html', cart=result)
             elif request.method=='POST':
                 session['cart'] += request.form['item_id']
