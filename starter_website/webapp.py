@@ -86,7 +86,7 @@ def home_manager():
                 fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
                 fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
                 fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
-                return render_template('home_manager.html', user=result, foods=fresult, locations=result_fSIDs)
+                return render_template('home_manager.html', user=result, foods=fresult, locations=fSIDresult)
             elif request.method == 'POST':
                 Type = request.form['Type']
                 fSID = request.form['fSID']
