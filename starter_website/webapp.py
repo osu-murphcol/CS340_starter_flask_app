@@ -149,6 +149,16 @@ def search():
                 return render_template('search.html', food_types=food_types, food_items=food_items)
     return redirect(url_for('login')) 
 
+@webapp.route('/cart', methods=['POST','GET'])
+def cart():
+    if 'email' in session:
+        email = session['email']
+        db_connection = connect_to_database()
+        query = 'SELECT type FROM Final_Users WHERE email = \'%s\'' % (email)
+        result = execute_query(db_connection, query).fetchone()
+        if result[0] == 'C':
+            return render_template('cart.html')
+    return redirect(url_for('login')) 
 
 #@webapp.route('/customer')
 #def add_item():
