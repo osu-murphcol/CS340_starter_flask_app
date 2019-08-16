@@ -282,6 +282,9 @@ def change_address():
                 query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
                 execute_query(db_connection, query)
                 return redirect(url_for('change_address'))   
+            else:
+                flash('All fields are required.')
+                return render_template('change_address.html', user=user, address=address)
     return redirect(url_for('login'))   
 
 @webapp.route('/orders_driver')
