@@ -26,14 +26,14 @@
                         </tr>
                         {% for food in foods %}
                         <tr>
-                            <th>{{food[0]}}</th>
-                            <th>{{food[1]}}</th>
-                            <th>{{food[2]}}</th>
-                            <th>{{food[3]}}</th>
-                            <th><form action="/remove_item" method="post">
+                            <td>{{food[0]}}</td>
+                            <td>{{food[1]}}</td>
+                            <td>{{food[2]}}</td>
+                            <td>{{food[3]}}</td>
+                            <td><form action="/remove_item" method="post">
                                 <input type=hidden value="{{ food[4] }}" name="to_remove">
                                 <input type="submit" class="btn btn-default" value="Remove" onClick="window.location.reload();">
-                            </form></th>
+                            </form></td>
                         </tr>
                         {% endfor %}
 
