@@ -13,10 +13,13 @@
   <thead>
       <th>Order Time</th>
       <th>Order Email</th>
-      <th>Order Address</th>
+      <th>Item Type</th>
+      <th>Item Name</th>
+      <th>Item Price</th>
+      <th>deliverEmail</th>
   </thead>
   {% for order in orders %}
-    <tr> <td> {{order[2]}} </td> <td> {{order[3]}} </td> <td> {{order[5]}} </td> </tr>
+    <tr> <td> {{order[0]}} </td> <td> {{order[1]}} </td> <td> {{order[2]}} </td> <td> {{order[3]}} </td> <td> {{order[4]}} </td> <td> {{order[5]}} </td> </tr>
   {% endfor %}
 </table>
 </div>
