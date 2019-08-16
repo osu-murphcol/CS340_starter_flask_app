@@ -17,20 +17,20 @@
   <h3>Please ensure your address is correct: </h3>
   <form id="update_address" action="/change_address" method="post">
     <div class="form-group">
-        <label for="street">Street:</label>
-      <input type="text" class="form-control" name="street" value = "{{ address[0] }}">
+        <label for="street">{{form.street.label}}</label>
+        {{form.street}}
+        </div>
+    <div class="form-group">
+        <label for="zip">{{form.zip_code.label}}</label>
+        {{form.zip_code}}
     </div>
     <div class="form-group">
-        <label for="zip">ZIP:</label>
-      <input type="text" class="form-control" name="zip" value = "{{ address[1] }}" >
+        <label for="city">{{form.city.label}}</label>
+        {{form.city}}
     </div>
     <div class="form-group">
-        <label for="city">City:</label>
-      <input type="text" class="form-control" name="city" value = "{{ address[2] }}" >
-    </div>
-    <div class="form-group">
-        <label for="state">State:</label>
-      <input type="text" class="form-control" name="state" value = "{{ address[3] }}" >
+        <label for="state">{{form.state.label}}</label>
+        {{form.state}}
     </div>
       <input type="submit" class="btn btn-default" value="Submit">
   </form>

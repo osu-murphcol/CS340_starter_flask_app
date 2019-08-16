@@ -58,10 +58,10 @@ def nav_manager():
 ### FORMS
 
 class AddressForm(FlaskForm):
-    street = TextField('street', validators=[DataRequired()])
-    zip_code = IntegerField('zip', validators=[DataRequired()])
-    city = StringField('city', validators=[DataRequired()])
-    state = StringField('state', validators=[DataRequired()])
+    street = TextField("Street, validators=[DataRequired()])
+    zip_code = IntegerField("Zip Code", validators=[DataRequired()])
+    city = StringField("City", validators=[DataRequired()])
+    state = StringField("State", validators=[DataRequired()])
 
 class ItemForm(FlaskForm):
     location = TextField('fSID', validators=[DataRequired()])
@@ -268,6 +268,7 @@ def place_order():
 @webapp.route('/change_address', methods=['POST','GET'])
 def change_address():
     if 'email' in session:
+        form = AddressForm()
         db_connection = connect_to_database()
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
