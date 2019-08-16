@@ -3,6 +3,7 @@ from db_connector.db_connector import connect_to_database, execute_query
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
+from flask_inputs import Inputs
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators
 from wtforms.validators import DataRequired
