@@ -276,7 +276,7 @@ def change_address():
         query = 'SELECT * FROM Final_Addresses WHERE email = \'%s\'' % (email)
         address = execute_query(db_connection, query).fetchone()
         if request.method=='GET': 
-            return render_template('change_address.html', user=user, address=address)
+            return render_template('change_address.html', form=form, user=user, address=address)
         if request.method=='POST':
             form = AddressForm(request.form)
             if form.validate():
@@ -285,7 +285,7 @@ def change_address():
                 return redirect(url_for('change_address'))   
             else:
                 flash('All fields are required.')
-                return render_template('change_address.html', user=user, address=address)
+                return render_template('change_address.html', form=form, user=user, address=address)
     return redirect(url_for('login'))   
 
 @webapp.route('/orders_driver')
