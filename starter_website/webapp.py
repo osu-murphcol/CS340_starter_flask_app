@@ -3,12 +3,21 @@ from db_connector.db_connector import connect_to_database, execute_query
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
+from flask_inputs import Inputs
+from flask_wtf import FlaskForm
+from wtforms import StringField, validators
+from wtforms.validators import DataRequired
 
 nav = Nav()
 
 #create the web application
 webapp = Flask(__name__)
 webapp.secret_key = 'cs340_2019'
+
+Bootstrap(webapp)
+nav.init_app(webapp)
+
+### NAVIGATION
 
 @nav.navigation()
 def nav_login():
@@ -46,6 +55,23 @@ def nav_manager():
         View('Change Address', 'change_address'),
         View('Logout', 'logout')
     )
+
+### FORMS
+
+class AddressForm(FlaskForm):
+    street = TextField('street', validators=[DataRequired()])
+    zip_code = IntegerField('zip', validators=[DataRequired()])
+    city = StringField('city', validators=[DataRequired()])
+    state = StringField('state', validators=[DataRequired()])
+
+class ItemForm(FlaskForm):
+    location = TextField('fSID', validators=[DataRequired()])
+    food_type = TextField('Type', validators=[DataRequired()])
+    name = TextField('itemName', validators=[DataRequired()])
+    price = IntegerField('itemPrice', validators=[DataRequired()])
+
+
+### ROUTES
 
 @webapp.route('/')
 def index():
@@ -252,9 +278,11 @@ def change_address():
         if request.method=='GET': 
             return render_template('change_address.html', user=user, address=address)
         if request.method=='POST':
-            query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
-            result = execute_query(db_connection, query)
-            return redirect(url_for('change_address'))   
+            form = AddressForm(request.form)
+            if form.validate():
+                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip'], request.form['city'], request.form['state'], email)
+                execute_query(db_connection, query)
+                return redirect(url_for('change_address'))   
     return redirect(url_for('login'))   
 
 @webapp.route('/orders_driver')
@@ -291,5 +319,3 @@ def logout():
     return redirect(url_for('login'))
 
 
-Bootstrap(webapp)
-nav.init_app(webapp)
