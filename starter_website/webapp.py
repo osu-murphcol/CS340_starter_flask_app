@@ -278,7 +278,7 @@ def orders_manager():
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'F':
-            query = 'SELECT orderTime, orderEmail, type, itemName, itemPrice, deliverEmail FROM Final_Orders NATURAL JOIN Final_ConsistOf NATURAL JOIN Final_MenuItems WHERE status = 'P' AND deliverEmail IS NOT NULL AND foodServiceID IN ( SELECT foodServiceID FROM Final_Addresses NATURAL JOIN Final_FoodServices WHERE email = \'%s\' ) GROUP BY orderID' % (email)
+            query = 'SELECT orderTime, orderEmail, type, itemName, itemPrice, deliverEmail FROM Final_Orders NATURAL JOIN Final_ConsistOf NATURAL JOIN Final_MenuItems WHERE status = \'P\' AND deliverEmail IS NOT NULL AND foodServiceID IN ( SELECT foodServiceID FROM Final_Addresses NATURAL JOIN Final_FoodServices WHERE email = \'%s\' ) GROUP BY orderID' % (email)
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_manager.html', orders=orders)
     return redirect(url_for('home'))   
