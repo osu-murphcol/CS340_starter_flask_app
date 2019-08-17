@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 from flask_wtf import FlaskForm
-from wtforms import TextField, IntegerField, StringField, DecimalField, validators
+from wtforms import Form, TextField, IntegerField, StringField, DecimalField, validators
 from wtforms.validators import DataRequired, Regexp, AnyOf
 
 nav = Nav()
@@ -268,7 +268,7 @@ def change_address():
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
         if request.method=='POST':
-            if form.validate():
+            if not form.validate():
                 print("##############ERROR############")
             flash('Address updated!')
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
