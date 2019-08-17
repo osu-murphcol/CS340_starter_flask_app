@@ -153,7 +153,7 @@ def home_driver():
     if 'email' in session:
         email = session['email']
         db_connection = connect_to_database()
-        query = 'SELECT * FROM Final_Users WHERE email = \'%s\' AND deliverEmail IS NULL ' % (email)
+        query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'D':
             return render_template('home_driver.html', user=result)  
@@ -289,7 +289,7 @@ def orders_driver():
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'D':
-            query = 'SELECT * FROM Final_Orders'
+            query = 'SELECT * FROM Final_Orders WHERE deliverEmail IS NULL'
             orders = execute_query(db_connection, query).fetchall()
             return render_template('orders_driver.html', orders=orders)
     return redirect(url_for('home'))   
