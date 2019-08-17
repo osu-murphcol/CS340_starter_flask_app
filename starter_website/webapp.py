@@ -271,7 +271,7 @@ def change_address():
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        if request.method=='POST' and form.validate():
+        if request.method=='POST':
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
             execute_query(db_connection, query) 
             flash('Address updated!')
