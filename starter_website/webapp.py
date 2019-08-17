@@ -59,7 +59,7 @@ def nav_manager():
 
 class AddressForm(FlaskForm):
     street = TextField("Street", validators=[DataRequired("Please enter a street")])
-    zip_code = IntegerField("Zip Code", validators=[DataRequired("Please enter a 5 digit zip code"),validators.Regexp(regex=r'^([0-9]{5})$')])
+    zip_code = IntegerField("Zip Code", validators=[DataRequired("Please enter a 5 digit zip code"),validators.Regexp('^([0-9]{5})$')])
     city = StringField("City", validators=[DataRequired("Please enter a city")])
     state = StringField("State", validators=[DataRequired("Please enter a state"),validators.AnyOf(["AK", "AL", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"])])
 
