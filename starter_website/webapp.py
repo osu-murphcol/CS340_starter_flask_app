@@ -118,7 +118,7 @@ def home():
 @webapp.route('/home_manager', methods=['POST','GET'])
 def home_manager():
     if 'email' in session:
-        form = ItemForm()
+        form = ItemForm(request.form)
         email = session['email']
         db_connection = connect_to_database()
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
@@ -130,12 +130,10 @@ def home_manager():
             fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
             fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
             if request.method == 'POST' and form.validate():
-                form = ItemForm(request.form)
-                if form.validate():
-                    db_connection = connect_to_database()
-                    query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
-                    execute_query(db_connection, query)
-                    flash('Item Added!')
+                db_connection = connect_to_database()
+                query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
+                execute_query(db_connection, query)
+                flash('Item Added!')
             return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
     return redirect(url_for('login')) 
 
@@ -269,7 +267,7 @@ def change_address():
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        if request.method=='POST':
+        if request.method=='POST' and form.validate():
             query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
             execute_query(db_connection, query) 
             flash('Address updated!')
