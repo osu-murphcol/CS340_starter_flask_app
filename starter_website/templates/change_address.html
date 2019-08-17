@@ -21,7 +21,7 @@
         {{form.street(class="form-control")}}
     </div>
     <div class="form-group">
-        <label for="zip">{{form.zip_code.label}}</label>
+        <label for="zip_code">{{form.zip_code.label}}</label>
         {{form.zip_code(class="form-control")}}
     </div>
     <div class="form-group">
@@ -34,5 +34,14 @@
     </div>
     <input type="submit" class="btn btn-default" value="Submit">
   </form>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
  </div>
 {% endblock %}
