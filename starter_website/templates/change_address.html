@@ -51,13 +51,11 @@
   {% if messages %}
      <ul>
         {% for message in messages %}
-        <li class="alert">{{ message }}</li>
+        <li class="alert alert-success">{{ message }}</li>
         {% endfor %}
      </ul>
   {% endif %}
 {% endwith %}
-{% if form.errors %}
-    {{ form.errors }}
-{% endif %}
+
  </div>
 {% endblock %}
