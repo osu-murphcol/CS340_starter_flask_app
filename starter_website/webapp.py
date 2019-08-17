@@ -4,7 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 from flask_wtf import FlaskForm
-from wtforms import TextField, IntegerField, StringField, validators
+from wtforms import TextField, IntegerField, StringField, DecimalField, validators
 from wtforms.validators import DataRequired
 
 nav = Nav()
@@ -58,16 +58,15 @@ def nav_manager():
 ### FORMS
 
 class AddressForm(FlaskForm):
-    street = TextField("Street", validators=[DataRequired()])
-    zip_code = IntegerField("Zip Code", validators=[DataRequired()])
-    city = StringField("City", validators=[DataRequired()])
-    state = StringField("State", validators=[DataRequired()])
+    street = TextField("Street", class_="form-control", validators=[DataRequired("Please enter a street")])
+    zip_code = IntegerField("Zip Code", class_="form-control", validators=[DataRequired("Please enter a 5 digit zip code"),validators.Length(min=5, max=5)])
+    city = StringField("City", class_="form-control", validators=[DataRequired("Please enter a city")])
+    state = StringField("State", class_="form-control", validators=[DataRequired("Please enter a state"),validators.Length(min=2, max=2)])
 
 class ItemForm(FlaskForm):
-    location = TextField('fSID', validators=[DataRequired()])
-    food_type = TextField('Type', validators=[DataRequired()])
-    name = TextField('itemName', validators=[DataRequired()])
-    price = IntegerField('itemPrice', validators=[DataRequired()])
+    name = StringField("Name", class_="form-control", validators=[DataRequired("Please enter a name")])
+    food_type = StringField("Type", class_="form-control", validators=[DataRequired("Please enter a type")])
+    price = DecimalField("Price", class_="form-control", places=2, validators=[DataRequired("Please enter a price")])
 
 
 ### ROUTES
@@ -116,31 +115,26 @@ def home():
 @webapp.route('/home_manager', methods=['POST','GET'])
 def home_manager():
     if 'email' in session:
+        form = ItemForm()
         email = session['email']
         db_connection = connect_to_database()
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         result = execute_query(db_connection, query).fetchone()
         if result[1] == 'F':
+            fquery= 'SELECT Final_FoodServices.serviceName, Final_MenuItems.type, Final_MenuItems.itemName, Final_MenuItems.itemPrice, Final_MenuItems.ItemID FROM Final_MenuItems JOIN Final_FoodServices on Final_MenuItems.foodServiceID = Final_FoodServices.foodServiceID WHERE Final_FoodServices.foodServiceID IN(SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
+            fresult = execute_query(db_connection, fquery).fetchall()
+            fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
+            fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
+            fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
             if request.method=='GET':
-                fquery= 'SELECT Final_FoodServices.serviceName, Final_MenuItems.type, Final_MenuItems.itemName, Final_MenuItems.itemPrice, Final_MenuItems.ItemID FROM Final_MenuItems JOIN Final_FoodServices on Final_MenuItems.foodServiceID = Final_FoodServices.foodServiceID WHERE Final_FoodServices.foodServiceID IN(SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
-                fresult = execute_query(db_connection, fquery).fetchall()
-                fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
-                fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
-                fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
-                return render_template('home_manager.html', user=result, foods=fresult, locations=fSIDresult)
+                return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
             elif request.method == 'POST':
-                Type = request.form['Type']
-                fSID = request.form['fSID']
-                itemName = request.form['itemName']
-                itemPrice = request.form['itemPrice']
-                db_connection = connect_to_database()
-                uquery='Select (1+MAX(ItemID)) FROM Final_MenuItems'
-                uresult = execute_query(db_connection, uquery).fetchone()
-                query = 'INSERT INTO Final_MenuItems VALUES (\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')' % (uresult[0],Type,fSID,itemName,itemPrice)
-                execute_query(db_connection, query)
-                equery = 'SELECT type from Final_Users WHERE email = \'%s\'' % (email)
-                result = execute_query(db_connection, equery).fetchone()
-                return redirect(url_for('home_manager'))
+                form = ItemForm(request.form)
+                if form.validate():
+                    db_connection = connect_to_database()
+                    query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
+                    execute_query(db_connection, query)
+                    return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
     return redirect(url_for('login')) 
 
 @webapp.route('/remove_item', methods=['POST','GET'])
