@@ -129,16 +129,14 @@ def home_manager():
             fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
             fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
             fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
-            if request.method=='GET':
-                return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
-            elif request.method == 'POST':
+            elif request.method == 'POST' and form.validate():
                 form = ItemForm(request.form)
                 if form.validate():
                     db_connection = connect_to_database()
                     query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
                     execute_query(db_connection, query)
                     flash('Item Added!')
-                return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
+            return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
     return redirect(url_for('login')) 
 
 @webapp.route('/remove_item', methods=['POST','GET'])
