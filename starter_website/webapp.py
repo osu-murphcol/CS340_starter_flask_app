@@ -279,7 +279,7 @@ def change_address():
             form.city.data = address[2]
             form.state.data = address[3]
             return render_template('change_address.html', form=form, user=user)
-        if request.method=='POST'
+        if request.method=='POST':
             form = AddressForm(request.form)
             if form.validate():
                 query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
