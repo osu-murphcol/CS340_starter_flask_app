@@ -55,5 +55,8 @@
      </ul>
   {% endif %}
 {% endwith %}
+{% if form.errors %}
+    {{ form.errors }}
+{% endif %}
  </div>
 {% endblock %}
