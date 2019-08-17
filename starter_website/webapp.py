@@ -131,7 +131,7 @@ def home_manager():
             fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
             if request.method == 'POST' and form.validate():
                 db_connection = connect_to_database()
-                query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
+                query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['food_type'],request.form['fSID'],request.form['name'],request.form['price'])
                 execute_query(db_connection, query)
                 flash('Item Added!')
             return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
