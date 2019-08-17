@@ -284,7 +284,6 @@ def change_address():
                 query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip_code'], request.form['city'], request.form['state'], email)
                 execute_query(db_connection, query) 
                 flash('Address updated!')
-            
             return render_template('change_address.html', form=form, user=user)
     return redirect(url_for('login'))   
 
