@@ -5,7 +5,7 @@ from flask_nav import Nav
 from flask_nav.elements import Navbar, View
 from flask_wtf import FlaskForm
 from wtforms import TextField, IntegerField, StringField, DecimalField, validators
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Regexp, AnyOf
 
 nav = Nav()
 
