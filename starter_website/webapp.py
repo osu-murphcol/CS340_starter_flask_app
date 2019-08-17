@@ -282,7 +282,7 @@ def change_address():
             form.street.data = address[0]
             form.zip_code.data = address[1]
             form.city.data = address[2]
-            form.state.data = address[3]=
+            form.state.data = address[3]
         return render_template('change_address.html', form=form, user=user)
     return redirect(url_for('login'))   
 
