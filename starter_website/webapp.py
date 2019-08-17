@@ -129,7 +129,7 @@ def home_manager():
             fSIDquery= 'SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\'' % (email)
             fSIDquery= 'SELECT * FROM Final_FoodServices WHERE foodServiceID IN (SELECT foodServiceID FROM Final_ConnectTo WHERE email = \'%s\')' % (email)
             fSIDresult = execute_query(db_connection, fSIDquery).fetchall()
-            elif request.method == 'POST' and form.validate():
+            if request.method == 'POST' and form.validate():
                 form = ItemForm(request.form)
                 if form.validate():
                     db_connection = connect_to_database()
