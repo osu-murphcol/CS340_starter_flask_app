@@ -60,7 +60,7 @@ def nav_manager():
 class AddressForm(FlaskForm):
     street = TextField("Street", validators=[DataRequired("Please enter a street")])
     zip_code = IntegerField("Zip Code", validators=[DataRequired("Please enter a 5 digit zip code")])
-    city = StringField("City", validators=[DataRequired("Please enter a city"), Regexp('^([0-9]{5})$')])
+    city = StringField("City", validators=[DataRequired("Please enter a city"), Regexp('^([0-9]{5})$', message="Invalid zip code")])
     state = StringField("State", validators=[DataRequired("Please enter a state"), AnyOf(["AK", "AL", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"])])
 
 class ItemForm(FlaskForm):
@@ -284,6 +284,7 @@ def change_address():
                 query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip_code'], request.form['city'], request.form['state'], email)
                 execute_query(db_connection, query) 
                 flash('Address updated!')
+            
             return render_template('change_address.html', form=form, user=user)
     return redirect(url_for('login'))   
 
