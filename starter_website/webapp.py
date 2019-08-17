@@ -137,7 +137,8 @@ def home_manager():
                     db_connection = connect_to_database()
                     query = 'INSERT INTO Final_MenuItems (type, foodServiceID, itemName, itemPrice) VALUES (\'%s\',\'%s\',\'%s\',\'%s\')' % (request.form['Type'],request.form['fSID'],request.form['itemName'],request.form['itemPrice'])
                     execute_query(db_connection, query)
-                    return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
+                    flash('Item Added!')
+                return render_template('home_manager.html', form=form, user=result, foods=fresult, locations=fSIDresult)
     return redirect(url_for('login')) 
 
 @webapp.route('/remove_item', methods=['POST','GET'])
