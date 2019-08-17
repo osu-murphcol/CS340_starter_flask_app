@@ -58,15 +58,15 @@ def nav_manager():
 ### FORMS
 
 class AddressForm(FlaskForm):
-    street = TextField("Street", class_="form-control", validators=[DataRequired("Please enter a street")])
-    zip_code = IntegerField("Zip Code", class_="form-control", validators=[DataRequired("Please enter a 5 digit zip code"),validators.Length(min=5, max=5)])
-    city = StringField("City", class_="form-control", validators=[DataRequired("Please enter a city")])
-    state = StringField("State", class_="form-control", validators=[DataRequired("Please enter a state"),validators.Length(min=2, max=2)])
+    street = TextField("Street", validators=[DataRequired("Please enter a street")])
+    zip_code = IntegerField("Zip Code", validators=[DataRequired("Please enter a 5 digit zip code"),validators.Length(min=5, max=5)])
+    city = StringField("City", validators=[DataRequired("Please enter a city")])
+    state = StringField("State", validators=[DataRequired("Please enter a state"),validators.Length(min=2, max=2)])
 
 class ItemForm(FlaskForm):
-    name = StringField("Name", class_="form-control", validators=[DataRequired("Please enter a name")])
-    food_type = StringField("Type", class_="form-control", validators=[DataRequired("Please enter a type")])
-    price = DecimalField("Price", class_="form-control", places=2, validators=[DataRequired("Please enter a price")])
+    name = StringField("Name", validators=[DataRequired("Please enter a name")])
+    food_type = StringField("Type", validators=[DataRequired("Please enter a type")])
+    price = DecimalField("Price", places=2, validators=[DataRequired("Please enter a price")])
 
 
 ### ROUTES
