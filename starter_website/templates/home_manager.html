@@ -48,6 +48,7 @@
 <div class="container">
     <h4> Add New Menu Item:</h4>
     <form id="newfood" action="/home_manager" method="post">
+        {{ form.csrf_token }}
         <div class="form-group">
             <label for="fSID">Location:</label>
             <select class="form-control" name="fSID">
