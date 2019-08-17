@@ -282,7 +282,7 @@ def change_address():
         if request.method=='POST':
             form = AddressForm(request.form)
             if form.validate():
-                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (request.form['street'], request.form['zip_code'], request.form['city'], request.form['state'], email)
+                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
                 execute_query(db_connection, query) 
                 flash('Address updated!')
             return render_template('change_address.html', form=form, user=user)
