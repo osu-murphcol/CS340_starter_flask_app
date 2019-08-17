@@ -279,11 +279,12 @@ def change_address():
             form.city.data = address[2]
             form.state.data = address[3]
             return render_template('change_address.html', form=form, user=user)
-        if request.method=='POST' and form.validate():
+        if request.method=='POST'
             form = AddressForm(request.form)
-            query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
-            execute_query(db_connection, query) 
-            flash('Address updated!')
+            if form.validate():
+                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
+                execute_query(db_connection, query) 
+                flash('Address updated!')
         return render_template('change_address.html', form=form, user=user)
     return redirect(url_for('login'))   
 
