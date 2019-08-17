@@ -266,12 +266,12 @@ def place_order():
 @webapp.route('/change_address', methods=['POST','GET'])
 def change_address():
     if 'email' in session:
-        form = AddressForm()
         db_connection = connect_to_database()
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        if request.method=='GET': 
+        if request.method=='GET':
+            form = AddressForm()
             query = 'SELECT street, zip, city, state FROM Final_Addresses WHERE email = \'%s\'' % (email)
             address = execute_query(db_connection, query).fetchone()
             form.street.data = address[0]
