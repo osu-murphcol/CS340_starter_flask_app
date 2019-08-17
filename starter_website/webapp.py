@@ -77,6 +77,9 @@ def index():
 
 @webapp.route('/login', methods=['POST','GET'])
 def login():
+    if 'email' in session:
+        return redirect(url_for('home'))
+    session.pop('cart', None)
     if request.method == 'GET':
         db_connection = connect_to_database()
         query = "SELECT email from Final_Users;"
