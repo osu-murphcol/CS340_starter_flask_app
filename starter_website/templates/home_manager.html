@@ -85,9 +85,10 @@
     {% if messages %}
        <ul>
           {% for message in messages %}
-          <liclass="alert alert-success">{{ message }}</li>
+          <li class="alert alert-success">{{ message }}</li>
           {% endfor %}
        </ul>
     {% endif %}
+    {% endwith %}
 </div>
 {% endblock %}
