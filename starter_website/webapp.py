@@ -270,13 +270,13 @@ def change_address():
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        query = 'SELECT street, zip, city, state FROM Final_Addresses WHERE email = \'%s\'' % (email)
-        address = execute_query(db_connection, query).fetchone()
-        form.street.data = address[0]
-        form.zip_code.data = address[1]
-        form.city.data = address[2]
-        form.state.data = address[3]
         if request.method=='GET': 
+            query = 'SELECT street, zip, city, state FROM Final_Addresses WHERE email = \'%s\'' % (email)
+            address = execute_query(db_connection, query).fetchone()
+            form.street.data = address[0]
+            form.zip_code.data = address[1]
+            form.city.data = address[2]
+            form.state.data = address[3]
             return render_template('change_address.html', form=form, user=user)
         if request.method=='POST':
             form = AddressForm(request.form)
