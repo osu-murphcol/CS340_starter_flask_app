@@ -265,17 +265,16 @@ def place_order():
 
 @webapp.route('/change_address', methods=['POST','GET'])
 def change_address():
+    form = AddressForm(request.form)
     if 'email' in session:
-        form = AddressForm(request.form)
         db_connection = connect_to_database()
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        if request.method=='POST':
-            if form.validate():
-                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
-                execute_query(db_connection, query) 
-                flash('Address updated!')
+        if request.method=='POST' and form.validate():
+            query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
+            execute_query(db_connection, query) 
+            flash('Address updated!')
         elif request.method=='GET':
             query = 'SELECT street, zip, city, state FROM Final_Addresses WHERE email = \'%s\'' % (email)
             address = execute_query(db_connection, query).fetchone()
