@@ -267,13 +267,10 @@ def change_address():
         email = session['email']
         query = 'SELECT * FROM Final_Users WHERE email = \'%s\'' % (email)
         user = execute_query(db_connection, query).fetchone()
-        if request.method=='POST':
-            if form.validate():
-                flash('Address updated!')
-                query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
-                execute_query(db_connection, query) 
-            else:
-                flash("Validation failed")
+        if request.method=='POST' and form.validate():
+            flash('Address updated!')
+            query = 'UPDATE Final_Addresses SET street = \'%s\', zip = \'%s\', city = \'%s\', state = \'%s\' WHERE email = \'%s\'' % (form.street.data, form.zip_code.data, form.city.data, form.state.data, email)
+            execute_query(db_connection, query) 
         elif request.method=='GET':
             query = 'SELECT street, zip, city, state FROM Final_Addresses WHERE email = \'%s\'' % (email)
             address = execute_query(db_connection, query).fetchone()
